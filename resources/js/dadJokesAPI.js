@@ -79,11 +79,11 @@ DEFAULT_RESULTS = [
 
 const getJokes = async () => {
 	const URL = "https://icanhazdadjoke.com/search?limit=30";
-	const results = await fetch(URL, {
+	const [results, next_page] = await fetch(URL, {
 		headers: { Accept: "application/json" },
 	})
 		.then((response) => response.json())
-		.then((json) => json.results)
-		.catch((error) => DEFAULT_RESULTS);
-	return results;
+		.then(({ results, next_page }) => [results, next_page])
+		.catch((error) => [DEFAULT_RESULTS, null]);
+	return [results, next_page];
 };

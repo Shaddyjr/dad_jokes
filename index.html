@@ -32,12 +32,18 @@
 
 		// Store state and renders joke table
 		function JokesTable() {
-			const [jokes, setJokes] = React.useState([]);
+			const [state, setState] = React.useState({ jokes: [], nextPage: 1 });
+			console.log({ state });
 			React.useEffect(async () => {
-				const jokeList = await getJokes();
-				setJokes(jokeList);
+				const [newJokes, newNextPage] = await getJokes();
+				setState((oldState) => ({
+					...oldState,
+					jokes: newJokes,
+					nextPage: newNextPage,
+				}));
 			}, []);
 
+			const { jokes, nextPage } = state;
 			return (
 				<div>
 					{jokes.map(({ id, joke }) => {
