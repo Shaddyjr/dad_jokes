@@ -20,6 +20,36 @@
 	</body>
 
 	<script type="text/babel">
+		// custom React Hook using the dad jokes API, abstracts logic
+		function useDadJokesAPI() {
+			const [state, setState] = React.useState({
+				jokes: [],
+				currentPage: 1,
+				loading: false,
+			});
+			const { jokes, currentPage, loading } = state;
+
+			React.useEffect(async () => {
+				setState((oldState) => ({ ...oldState, loading: true }));
+				const [newJokes, newNextPage] = await getJokesByPage(currentPage);
+				setState((oldState) => ({
+					...oldState,
+					jokes: newJokes,
+					nextPage: newNextPage,
+					loading: true,
+				}));
+			}, [currentPage]);
+
+			function getNextPage() {
+				setState((oldState) => ({
+					...oldState,
+					currentPage: oldState.currentPage + 1,
+				}));
+			}
+
+			return { jokes, currentPage, loading, getNextPage };
+		}
+
 		// Renders an individual joke
 		function Joke({ id, joke }) {
 			return (
@@ -30,20 +60,8 @@
 			);
 		}
 
-		// Store state and renders joke table
-		function JokesTable() {
-			const [state, setState] = React.useState({ jokes: [], nextPage: 1 });
-			console.log({ state });
-			React.useEffect(async () => {
-				const [newJokes, newNextPage] = await getJokes();
-				setState((oldState) => ({
-					...oldState,
-					jokes: newJokes,
-					nextPage: newNextPage,
-				}));
-			}, []);
-
-			const { jokes, nextPage } = state;
+		// Renders table of jokes
+		function JokesTable({ jokes }) {
 			return (
 				<div>
 					{jokes.map(({ id, joke }) => {
@@ -53,9 +71,16 @@
 			);
 		}
 
-		// Main app
+		// Main app; stores state
 		function App() {
-			return <JokesTable />;
+			const { jokes, currentPage, loading, getNextPage } = useDadJokesAPI();
+
+			return (
+				<div>
+					<button onClick={getNextPage}>Get more jokes!</button>
+					<JokesTable jokes={jokes} />
+				</div>
+			);
 		}
 
 		// call for React to render entire tree
