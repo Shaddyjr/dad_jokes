@@ -11,16 +11,48 @@
 
 		<!-- import babel to use JSX -->
 		<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+		<!-- custom js -->
+		<script defer src="./resources/js/dadJokesAPI.js"></script>
 	</head>
 	<body>
 		<div id="root"></div>
 	</body>
-	<!-- custom scripts -->
-	<!-- <script type="text/babel">
-		function App() {
-			return <div>TESTING</div>;
+
+	<script type="text/babel">
+		// Renders an individual joke
+		function Joke({ id, joke }) {
+			return (
+				<div>
+					<header>{id}</header>
+					<p>{joke}</p>
+				</div>
+			);
 		}
+
+		// Store state and renders joke table
+		function JokesTable() {
+			const [jokes, setJokes] = React.useState([]);
+			React.useEffect(async () => {
+				const jokeList = await getJokes();
+				setJokes(jokeList);
+			}, []);
+
+			return (
+				<div>
+					{jokes.map(({ id, joke }) => {
+						return <Joke key={id} id={id} joke={joke} />;
+					})}
+				</div>
+			);
+		}
+
+		// Main app
+		function App() {
+			return <JokesTable />;
+		}
+
+		// call for React to render entire tree
 		ReactDOM.render(<App />, document.getElementById("root"));
-	</script> -->
-	<script type="text/babel" src="resources/js/index.js"></script>
+	</script>
 </html>

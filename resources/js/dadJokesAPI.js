@@ -83,7 +83,5 @@ const getJokes = async () => {
 		.then((response) => response.json())
 		.then((json) => json.results)
 		.catch((error) => DEFAULT_RESULTS);
-	// {id: 'SSnW8xsrrjb', joke: 'How does a penguin build it’s house? Igloos it together.', status: 200}
-	console.log(results);
-	// 'How does a penguin build it’s house? Igloos it together.'
+	return results;
 };
