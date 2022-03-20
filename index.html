@@ -73,27 +73,33 @@
 			);
 		}
 
+		function EmojiHeader({ getNextPage }) {
+			return (
+				<header className="header">
+					<img
+						className="laughing-emoji"
+						src="./resources/assets/laughing-emoji.png"
+						alt="laughing emoji #1"
+					/>
+					<button className="button" onClick={getNextPage}>
+						Get more jokes!
+					</button>
+					<img
+						className="laughing-emoji"
+						src="./resources/assets/laughing-emoji-2.png"
+						alt="laughing emoji #2"
+					/>
+				</header>
+			);
+		}
+
 		// Main app; stores state
 		function App() {
 			const { jokes, currentPage, loading, getNextPage } = useDadJokesAPI();
 
 			return (
 				<div>
-					<header className="header">
-						<img
-							className="laughing-emoji"
-							src="./resources/assets/laughing-emoji.png"
-							alt="laughing emoji #1"
-						/>
-						<button className="button" onClick={getNextPage}>
-							Get more jokes!
-						</button>
-						<img
-							className="laughing-emoji"
-							src="./resources/assets/laughing-emoji-2.png"
-							alt="laughing emoji #2"
-						/>
-					</header>
+					<EmojiHeader getNextPage={getNextPage} />
 					<JokesTable jokes={jokes} />
 				</div>
 			);
