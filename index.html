@@ -14,6 +14,8 @@
 
 		<!-- custom js -->
 		<script defer src="./resources/js/dadJokesAPI.js"></script>
+
+		<link rel="stylesheet" href="./resources/css/style.css" />
 	</head>
 	<body>
 		<div id="root"></div>
@@ -53,9 +55,9 @@
 		// Renders an individual joke
 		function Joke({ id, joke }) {
 			return (
-				<div>
-					<header>{id}</header>
-					<p>{joke}</p>
+				<div className="joke-container">
+					<p className="joke">{joke}</p>
+					<p className="joke-id">ID: {id}</p>
 				</div>
 			);
 		}
@@ -77,7 +79,21 @@
 
 			return (
 				<div>
-					<button onClick={getNextPage}>Get more jokes!</button>
+					<header className="header">
+						<img
+							className="laughing-emoji"
+							src="./resources/assets/laughing-emoji.png"
+							alt="laughing emoji #1"
+						/>
+						<button className="button" onClick={getNextPage}>
+							Get more jokes!
+						</button>
+						<img
+							className="laughing-emoji"
+							src="./resources/assets/laughing-emoji-2.png"
+							alt="laughing emoji #2"
+						/>
+					</header>
 					<JokesTable jokes={jokes} />
 				</div>
 			);
