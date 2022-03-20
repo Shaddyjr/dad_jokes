@@ -1,3 +1,5 @@
+// Check out https://icanhazdadjoke.com/api
+
 DEFAULT_RESULTS = [
 	{
 		id: "0189hNRf2g",
