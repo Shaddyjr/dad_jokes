@@ -11,9 +11,16 @@
 
 		<!-- import babel to use JSX -->
 		<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-
-		<!-- custom scripts -->
-		<script async src="resources/js/dadJokesAPI.js"></script>
 	</head>
-	<body></body>
+	<body>
+		<div id="root"></div>
+	</body>
+	<!-- custom scripts -->
+	<!-- <script type="text/babel">
+		function App() {
+			return <div>TESTING</div>;
+		}
+		ReactDOM.render(<App />, document.getElementById("root"));
+	</script> -->
+	<script type="text/babel" src="resources/js/index.js"></script>
 </html>
